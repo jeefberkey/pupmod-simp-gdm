@@ -25,10 +25,11 @@ define gdm::set (
   String                  $key,
   Variant[Boolean,String] $value
 ) {
-  augeas { "gdm_set_${name}":
-    incl    => '/etc/gdm/custom.conf',
-    lens    => 'Gdm.lns',
-    changes => [ "set ${section}/${key} '${value}'" ],
+  ini_setting { "gdm set ${name}":
+    path    => '/etc/gdm/custom.conf',
+    section => $section,
+    setting => $key,
+    value   => $value,
     require => Package['gdm']
   }
 }
